@@ -26,15 +26,15 @@ const works = [
     alt: "muse.molaa, Makeup wisuda oleh MUA @maher.mua",
   },
   {
-    title: "Soft Glam",
-    category: "Daily Makeup",
-    artist: "@byrara.makeup",
+    title: "Make Up Pengantin",
+    category: "Pengantin",
+    artist: "@nanamakeup.artistry",
     images: [
       "/assets/wedding/wedding-1-1.webp",
       "/assets/wedding/wedding-1-2.webp",
       "/assets/wedding/wedding-1-3.webp",
     ],
-    alt: "Close up model berhijab dengan riasan soft glam natural",
+    alt: "muse.molaa, Makeup pengantin oleh MUA @nanamakeup.artistry",
   },
 ];
 
