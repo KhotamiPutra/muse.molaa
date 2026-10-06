@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -16,17 +16,14 @@ const whatsappUrl =
 
 const works = [
   {
-    title: "Make Up Wisuda",
+    title: "Makeup Wisuda",
     category: "Wisuda",
-    artist: " @maher.mua",
-    images: [
-      "/assets/wisuda/wisuda-1.webp",
-      "/assets/wisuda/wisuda-2.webp",
-    ],
+    artist: "@maher.mua",
+    images: ["/assets/wisuda/wisuda-1.webp", "/assets/wisuda/wisuda-2.webp"],
     alt: "muse.molaa, Makeup wisuda oleh MUA @maher.mua",
   },
   {
-    title: "Make Up Pengantin",
+    title: "Makeup Pengantin",
     category: "Pengantin",
     artist: "@nanamakeup.artistry",
     images: [
@@ -36,19 +33,49 @@ const works = [
     ],
     alt: "muse.molaa, Makeup pengantin oleh MUA @nanamakeup.artistry",
   },
+  {
+    title: "Makeup Bridesmaid",
+    category: "Bridesmaid",
+    artist: "@bydaratazkia",
+    images: [
+      "/assets/bridesmaid/bridesmaid-1.webp",
+      "/assets/bridesmaid/bridesmaid-2.webp",
+      "/assets/bridesmaid/bridesmaid-3.webp",
+    ],
+    alt: "muse.molaa, Makeup bridesmaid oleh MUA @bydaratazkia",
+  },
 ];
 
 const categories = [
   "Semua",
   "Wisuda",
   "Pengantin",
-  "Prewedding",
+  "Bridesmaid",
   "Daily Makeup",
 ];
 
 export default function Page() {
   const [active, setActive] = useState("Semua");
   const [activeSlides, setActiveSlides] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.04, rootMargin: "0px 0px 80px" },
+    );
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, [active]);
+
   const filtered = useMemo(
     () =>
       active === "Semua"
@@ -124,8 +151,8 @@ export default function Page() {
           <div className="arch-frame">
             <div className="arch-inner">
               <img
-                src="/assets/akad/Akad-4.jpg"
-                alt="Potret muse.molaa dengan hijab dan makeup lembut"
+                src="/assets/akad/Akad-4.webp"
+                alt="Potret Muse Molaa dengan hijab dan makeup lembut"
               />
             </div>
           </div>
@@ -139,7 +166,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="about" className="about-section container">
+      <section id="about" className="about-section container reveal">
         <div className="section-kicker">A little about me</div>
         <div className="about-grid">
           <h2>
@@ -179,7 +206,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="gallery" className="gallery-section container">
+      <section id="gallery" className="gallery-section container reveal">
         <div className="section-heading">
           <div>
             <div className="section-kicker">My recent collaborations</div>
@@ -211,7 +238,7 @@ export default function Page() {
           {filtered.map((work) => {
             const current = activeSlides[work.title] ?? 0;
             return (
-              <article className="work-card" key={work.title}>
+              <article className="work-card reveal" key={work.title}>
                 <div
                   className="work-image"
                   onClick={() => changeSlide(work.title, work.images.length, 1)}
@@ -273,7 +300,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="terms" className="terms-section container">
+      <section id="terms" className="terms-section container reveal">
         <div className="terms-card">
           <div>
             <div className="section-kicker">Before we create</div>
@@ -321,7 +348,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="contact" className="contact-section container">
+      <section id="contact" className="contact-section container reveal">
         <div className="contact-flower">✿</div>
         <div className="section-kicker">Ready when you are</div>
         <h2>
